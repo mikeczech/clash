@@ -64,6 +64,7 @@ COMPOSER_LOCATION="europe-west1" ./run.sh deploy-airflow-plugin
 
 Note that the pyclash package must be available to the Composer in order to use the Clash operators (the  [official documentation](https://cloud.google.com/composer/docs/how-to/using/installing-python-dependencies) describes how to install custom packages from PyPi). The following example shows how to run jobs using Clash's *ComputeEngineJobOperator*:
 
+> **WARNING**: Airflow support is deprecated and will be removed soon.
 ```Python
 from airflow.operators import ComputeEngineJobOperator
 from airflow import DAG
