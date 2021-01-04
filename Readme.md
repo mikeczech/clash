@@ -83,7 +83,7 @@ with DAG(
     catchup=False,
 ) as dag:
     task_run_script = ComputeEngineJobOperator(
-        cmd="echo hello",
+        args=["echo", "hello"],
         job_config=JOB_CONFIG,
         name_prefix="myjob",
         task_id="run_script_task"

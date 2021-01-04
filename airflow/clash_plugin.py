@@ -10,14 +10,14 @@ from airflow.utils.decorators import apply_defaults
 log = logging.getLogger(__name__)
 
 class ComputeEngineJobOperator(BaseOperator):
-    template_fields = ("cmd", "cmd_file")
+    template_fields = ("args", "cmd_file")
     ui_color = "#ceebff"
 
     @apply_defaults
     def __init__(
         self,
         job_config,
-        cmd=None,
+        args=None,
         cmd_file=None,
         name_prefix=None,
         env_vars={},
@@ -28,7 +28,7 @@ class ComputeEngineJobOperator(BaseOperator):
     ):
         self.job = clash.Job(job_config=job_config, name_prefix=name_prefix)
 
-        self.cmd = cmd
+        self.args = args
         self.cmd_file = cmd_file
         self.env_vars = env_vars
         self.gcs_target = gcs_target
@@ -45,9 +45,9 @@ class ComputeEngineJobOperator(BaseOperator):
                 gcs_target=self.gcs_target,
                 gcs_mounts=self.gcs_mounts,
             )
-        elif self.cmd:
+        elif self.args:
             self.job.run(
-                self.cmd,
+                self.args,
                 env_vars=self.env_vars,
                 gcs_target=self.gcs_target,
                 gcs_mounts=self.gcs_mounts,
